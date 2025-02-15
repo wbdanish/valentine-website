@@ -1,74 +1,143 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Place</title>
+    <title>Valentine's Date Request ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* General Page Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             text-align: center;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: white;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 100vh;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
         }
+
         h1 {
-            font-size: 36px;
-            color: #333;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
         }
+
+        p {
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        /* Button Styles */
         .btn-container {
             margin-top: 20px;
+            position: relative;
         }
+
         button {
-            font-size: 18px;
-            padding: 10px 20px;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px 25px;
             margin: 10px;
             border: none;
+            border-radius: 25px;
             cursor: pointer;
-            border-radius: 5px;
             transition: 0.3s;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
         }
+
         .yes-btn {
-            background-color: #28a745;
+            background: #ff4081;
             color: white;
         }
+
         .no-btn {
-            background-color: #dc3545;
+            background: #ff1744;
             color: white;
+            position: absolute;
         }
-        button:hover {
+
+        .yes-btn:hover {
+            background: #f50057;
+            transform: scale(1.1);
+        }
+
+        /* YAY Message */
+        #yay-message {
+            font-size: 50px;
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            color: yellow;
+            display: none;
+            animation: popIn 1s ease-in-out;
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
             opacity: 0.8;
+            border-radius: 50%;
+            animation: fall 3s infinite ease-in-out;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Place</h1>
-    <p>Welcome to My World?</p>
-    
+    <h1>Valentine’s Special 💖</h1>
+    <p>Would you like to go on a date with me?</p>
+
     <div class="btn-container">
-        <button class="yes-btn" onclick="showMessage('Yes')">Yes</button>
-        <button class="no-btn" onclick="showMessage('No')">No</button>
+        <button class="yes-btn" onclick="showYay()">Yes</button>
+        <button class="no-btn" onmouseover="moveNoButton()">No</button>
     </div>
 
-    <p id="response" style="font-size: 20px; color: #333; margin-top: 20px;"></p>
+    <p id="yay-message">YAYYY! 🎉❤️</p>
 
     <script>
-        function showMessage(answer) {
-            let responseText = document.getElementById("response");
-            if (answer === "Yes") {
-                responseText.innerHTML = "Welcome! I'm glad you're here!";
-                responseText.style.color = "green";
-            } else {
-                responseText.innerHTML = "Maybe next time!";
-                responseText.style.color = "red";
+        function showYay() {
+            document.getElementById("yay-message").style.display = "block";
+
+            // Add confetti effect
+            for (let i = 0; i < 50; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                document.body.appendChild(confetti);
+
+                let xPos = Math.random() * window.innerWidth;
+                let delay = Math.random() * 2;
+                let duration = Math.random() * 3 + 2;
+
+                confetti.style.left = xPos + "px";
+                confetti.style.animationDuration = duration + "s";
+                confetti.style.animationDelay = delay + "s";
+
+                setTimeout(() => confetti.remove(), duration * 1000);
             }
+        }
+
+        function moveNoButton() {
+            let button = document.querySelector(".no-btn");
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 100);
+            button.style.left = x + "px";
+            button.style.top = y + "px";
         }
     </script>
 </body>
